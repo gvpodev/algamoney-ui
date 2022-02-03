@@ -30,3 +30,11 @@ label {
 .col-data-content {
   text-align: center;
 }
+
+.col-acoes {
+  width: 120px;
+}
+
+.col-acoes > a {
+  margin-right: 5px;
+}
