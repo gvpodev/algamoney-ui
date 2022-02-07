@@ -18,3 +18,27 @@ label {
 .body-container {
   margin: 20px 20px 20px 20px;
 }
+
+.col-valor-header {
+  width: 120px;
+}
+
+.col-valor-content {
+  text-align: right;
+}
+
+.col-data-header {
+  width: 120px;
+}
+
+.col-data-content {
+  text-align: center;
+}
+
+.col-acoes {
+  width: 120px;
+}
+
+.col-acoes > a {
+  margin-right: 5px;
+}
