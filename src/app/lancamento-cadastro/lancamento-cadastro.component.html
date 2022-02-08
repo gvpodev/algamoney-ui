@@ -1,0 +1,54 @@
+<div class="container">
+  <form>
+    <div class="grid">
+      <div class="col-12">
+        <h1>Novo lançamento</h1>
+      </div>
+
+      <div class="col-12">
+        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+      </div>
+
+      <div class="col-6 md:col-3 p-fluid">
+        <label>Vencimento</label>
+        <p-calendar inputId="basic" dateFormat="dd/mm/yy" ></p-calendar>
+      </div>
+
+      <div class="col-6 md:col-3 p-fluid">
+        <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+        <p-calendar inputId="basic" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+      <div class="col-12 md:col-8 p-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text"/>
+      </div>
+
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Valor</label>
+        <input placeholder="0,00" pInputText type="text"/>
+      </div>
+
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Categoria</label>
+        <input pInputText type="text"/>
+      </div>
+
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Pessoa</label>
+        <input pInputText type="text"/>
+      </div>
+
+      <div class="col-12 p-fluid">
+        <label>Observação</label>
+        <textarea rows="3" pInputTextarea></textarea>
+      </div>
+
+      <div class="col-12 lancamentos-buttons">
+        <button style="margin-right: 10px;" pButton type="submit" label="Salvar"></button>
+        <button style="margin-right: 10px;" pButton type="submit" label="Novo" class="p-button-help"></button>
+        <a href="javascript:;">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>
