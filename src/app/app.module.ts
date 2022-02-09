@@ -30,6 +30,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ErrorMessagesComponent } from './shared/error-messages/error-messages.component';
 import { LancamentosTabelaComponent } from './lancamentos-tabela/lancamentos-tabela.component';
+import { PessoasTabelaComponent } from './pessoas-tabela/pessoas-tabela.component';
 
 registerLocaleData(ptBr);
 
@@ -42,7 +43,8 @@ registerLocaleData(ptBr);
     LancamentoCadastroComponent,
     PessoaCadastroComponent,
     ErrorMessagesComponent,
-    LancamentosTabelaComponent
+    LancamentosTabelaComponent,
+    PessoasTabelaComponent
   ],
   imports: [
     // App
