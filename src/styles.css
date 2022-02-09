@@ -15,6 +15,16 @@ label {
   }
 }
 
+.cadastros-buttons {
+  width:100%;
+  display: flex;
+  align-items: center;
+}
+
+.cadastros-buttons a {
+  text-decoration: none;
+}
+
 .return-link {
   margin: 0 auto;
 }
