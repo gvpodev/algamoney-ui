@@ -29,6 +29,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ErrorMessagesComponent } from './shared/error-messages/error-messages.component';
+import { LancamentosTabelaComponent } from './lancamentos-tabela/lancamentos-tabela.component';
 
 registerLocaleData(ptBr);
 
@@ -40,7 +41,8 @@ registerLocaleData(ptBr);
     PessoasPesquisaComponent,
     LancamentoCadastroComponent,
     PessoaCadastroComponent,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    LancamentosTabelaComponent
   ],
   imports: [
     // App
