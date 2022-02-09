@@ -22,6 +22,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule } from 'primeng/dropdown';
 
 registerLocaleData(ptBr);
 
@@ -47,7 +48,8 @@ registerLocaleData(ptBr);
     TooltipModule,
     InputTextareaModule,
     CalendarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    DropdownModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
