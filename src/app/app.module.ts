@@ -28,6 +28,7 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
 import { InputMaskModule } from 'primeng/inputmask';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { ErrorMessagesComponent } from './shared/error-messages/error-messages.component';
 
 registerLocaleData(ptBr);
 
@@ -38,7 +39,8 @@ registerLocaleData(ptBr);
     NavbarComponent,
     PessoasPesquisaComponent,
     LancamentoCadastroComponent,
-    PessoaCadastroComponent
+    PessoaCadastroComponent,
+    ErrorMessagesComponent
   ],
   imports: [
     // App

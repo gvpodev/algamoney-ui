@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #lancamentoForm="ngForm">
     <div class="grid">
       <div class="col-12">
         <h1>Novo lançamento</h1>
@@ -11,7 +11,9 @@
 
       <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento</label>
-        <p-calendar inputId="basic" dateFormat="dd/mm/yy"></p-calendar>
+        <p-calendar name="vencimento" ngModel #vencimento="ngModel" inputId="basic"
+          [required]="true" dateFormat="dd/mm/yy"></p-calendar>
+        <app-error-messages [control]="vencimento.control" error="required" text="Informe uma data válida."></app-error-messages>
       </div>
 
       <div class="col-6 md:col-3 p-fluid">
@@ -20,28 +22,31 @@
       </div>
 
       <div class="col-12 md:col-8 p-fluid">
-        <label>Descrição {{ descricao.errors | json }}</label>
+        <label>Descrição</label>
         <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5" />
-
-        <p-message *ngIf="descricao.hasError('required') && descricao.dirty"
-         severity="error" text="Informe uma descrição"></p-message>
-        <p-message *ngIf="descricao.hasError('minlength') && descricao.dirty"
-        severity="error" text="Mínimo de {{ descricao.errors?.['minlength'].requiredLength }} letras. Você digitou apenas {{ descricao.errors?.['minlength'].actualLength }}"></p-message>
+        <app-error-messages [control]="descricao.control" error="required" text="Informe uma descrição."></app-error-messages>
+        <app-error-messages [control]="descricao.control" error="minlength" text="Mínimo de 5 letras."></app-error-messages>
       </div>
 
       <div class="col-12 md:col-4 p-fluid">
         <label>Valor</label>
-        <p-inputNumber name="valor" ngModel #valor="ngModel" mode="currency" currency="BRL" placeholder="0,00"></p-inputNumber>
+        <p-inputNumber name="valor" ngModel #valor="ngModel" [required]="true" mode="currency"
+          currency="BRL" placeholder="0,00"></p-inputNumber>
+        <app-error-messages [control]="valor.control" error="required" text="Informe um valor."></app-error-messages>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" placeholder="Selecione" [filter]="true"></p-dropdown>
+        <p-dropdown name="categoria" ngModel #categoria="ngModel" [options]="categorias" [required]="true"
+          placeholder="Selecione" [filter]="true"></p-dropdown>
+        <app-error-messages [control]="categoria.control" error="required" text="Selecione uma categoria."></app-error-messages>
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]="true"></p-dropdown>
+        <p-dropdown name="pessoa" ngModel #pessoa="ngModel" [options]="pessoas" [required]="true"
+          placeholder="Selecione" [filter]="true"></p-dropdown>
+        <app-error-messages [control]="pessoa.control" error="required" text="Selecione uma pessoa."></app-error-messages>
       </div>
 
       <div class="col-12 p-fluid">
@@ -50,7 +55,7 @@
       </div>
 
       <div class="col-12 cadastros-buttons">
-        <button style="margin-right: 10px;" pButton type="submit" label="Salvar"></button>
+        <button [disabled]="!lancamentoForm.valid" style="margin-right: 10px;" pButton type="submit" label="Salvar"></button>
         <button style="margin-right: 10px;" pButton type="submit" label="Novo" class="p-button-help"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
