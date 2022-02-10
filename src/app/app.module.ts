@@ -8,23 +8,16 @@ import ptBr from '@angular/common/locales/pt';
 // Components modules
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { NavbarComponent } from './core/navbar/navbar.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
-import { ErrorMessagesComponent } from './shared/error-messages/error-messages.component';
 import { PessoasModule } from './pessoas/pessoas.module';
-
-import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
-
-
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    ErrorMessagesComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +26,7 @@ registerLocaleData(ptBr);
 
     LancamentosModule,
     PessoasModule,
-
-    MessageModule,
-    MessagesModule
+    CoreModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },

@@ -11,6 +11,9 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputMaskModule } from 'primeng/inputmask';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -29,11 +32,15 @@ import { InputMaskModule } from 'primeng/inputmask';
     CommonModule,
     FormsModule,
 
+    SharedModule,
+
     InputTextModule,
     ButtonModule,
     TableModule,
     TooltipModule,
-    InputMaskModule
+    InputMaskModule,
+    MessageModule,
+    MessagesModule
   ]
 })
 export class PessoasModule { }

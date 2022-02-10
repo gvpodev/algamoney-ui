@@ -8,19 +8,19 @@
       <div class="col-12 p-fluid">
         <label>Nome</label>
         <input name="nome" ngModel #nome="ngModel" required minlength="5" type="text" pInputText>
-        <!-- <app-error-messages [control]="nome.control" error="required" text="Informe um nome."></app-error-messages>
-        <app-error-messages [control]="nome.control" error="minlength" text="Mínimo de 5 caracteres."></app-error-messages> -->
+        <app-error-messages [control]="nome.control" error="required" text="Informe um nome."></app-error-messages>
+        <app-error-messages [control]="nome.control" error="minlength" text="Mínimo de 5 caracteres."></app-error-messages>
       </div>
 
       <div class="col-8 p-fluid">
         <label>Logradouro</label>
         <input name="logradouro" ngModel #logradouro="ngModel" required type="text" pInputText>
-        <!-- <app-error-messages [control]="logradouro.control" error="required" text="Informe um logradouro."></app-error-messages> -->
+        <app-error-messages [control]="logradouro.control" error="required" text="Informe um logradouro."></app-error-messages>
       </div>
       <div class="col-4 p-fluid">
         <label>Número</label>
         <input name="numero-end" ngModel #numeroEnd="ngModel" required type="text" pInputText>
-        <!-- <app-error-messages [control]="numeroEnd.control" error="required" text="Informe um número."></app-error-messages> -->
+        <app-error-messages [control]="numeroEnd.control" error="required" text="Informe um número."></app-error-messages>
       </div>
 
       <div class="col-4 p-fluid">
@@ -30,23 +30,23 @@
       <div class="col-4 p-fluid">
         <label>Bairro</label>
         <input name="bairro" ngModel #bairro="ngModel" required type="text" pInputText>
-        <!-- <app-error-messages [control]="bairro.control" error="required" text="Informe um bairro."></app-error-messages> -->
+        <app-error-messages [control]="bairro.control" error="required" text="Informe um bairro."></app-error-messages>
       </div>
       <div class="col-4 p-fluid">
         <label>CEP</label>
         <p-inputMask name="cep" ngModel #cep="ngModel" [required]="true" mask="99.999-999"></p-inputMask>
-        <!-- <app-error-messages [control]="cep.control" error="required" text="Informe um cep válido."></app-error-messages> -->
+        <app-error-messages [control]="cep.control" error="required" text="Informe um cep válido."></app-error-messages>
       </div>
 
       <div class="col-6 p-fluid">
         <label>Cidade</label>
         <input name="cidade" ngModel #cidade="ngModel" required type="text" pInputText>
-        <!-- <app-error-messages [control]="cidade.control" error="required" text="Informe uma cidade."></app-error-messages> -->
+        <app-error-messages [control]="cidade.control" error="required" text="Informe uma cidade."></app-error-messages>
       </div>
       <div class="col-6 p-fluid">
         <label>Estado</label>
         <input name="estado" ngModel #estado="ngModel" required type="text" pInputText>
-        <!-- <app-error-messages [control]="estado.control" error="required" text="Informe um estado."></app-error-messages> -->
+        <app-error-messages [control]="estado.control" error="required" text="Informe um estado."></app-error-messages>
       </div>
 
       <div class="col-12 cadastros-buttons">

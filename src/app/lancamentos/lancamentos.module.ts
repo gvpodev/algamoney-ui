@@ -15,6 +15,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CommonModule,
     FormsModule,
 
-    // PrimeNG
+    SharedModule,
+
     InputTextModule,
     ButtonModule,
     TableModule,
@@ -35,7 +39,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
