@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
+import { PessoaFiltro, PessoaService } from '../pessoa.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -6,22 +8,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
 export class PessoasPesquisaComponent implements OnInit {
+  totalRegistros = 0
+  filtro = new PessoaFiltro()
+  pessoas = []
 
-  pessoas = [
-    { nome: 'Gabriel Vasconcellos', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-    { nome: 'Cintia Alves', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-    { nome: 'Deco Pimentel', cidade: 'Niteroi', estado: 'RJ', ativo: false },
-    { nome: 'Ilmacy Mello', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-    { nome: 'Zé das Couves', cidade: 'São Paulo', estado: 'SP', ativo: true },
-    { nome: 'Fulado Beltrano', cidade: 'Belo Horizonte', estado: 'MG', ativo: false },
-    { nome: 'Casimito Miguel', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: false },
-    { nome: 'Lucas Coelho', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-    { nome: 'Marcos Felipe', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-    { nome: 'Neymar Junior', cidade: 'Santos', estado: 'SP', ativo: false },
-    { nome: 'Lionel Messi', cidade: 'Rio de Janeiro', estado: 'RJ', ativo: true },
-  ]
+  constructor(private pessoaService: PessoaService) { }
 
-  constructor() { }
+  mudarPagina(event: LazyLoadEvent) {
+    let pagina = 0
+
+    if(event.first && event.rows) {
+      pagina = event.first / event.rows
+    }
+
+    this.pesquisar(pagina)
+  }
+
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina
+
+    this.pessoaService.pesquisar(this.filtro)
+      .then(resultado => {
+        this.totalRegistros = resultado.total
+        this.pessoas = resultado.pessoas
+      })
+  }
 
   ngOnInit(): void {
   }
