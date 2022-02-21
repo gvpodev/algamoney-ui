@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ErrorHandlerService } from '../core/error-handler.service';
 
 export class PessoaFiltro {
   nome?: string
@@ -12,9 +13,11 @@ export class PessoaFiltro {
 })
 export class PessoaService {
 
+  private readonly BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU0Njg4NjYsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJNdUJ4ZHJHdU1uQlVmdU91NXZYSV9lV0E0TXciLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.lJO7BR6PfQcyw1orSeSiBv5jYBzJA3_rqsW8w1E6LAg'
+
   pessoasUrl = 'http://localhost:8080/pessoas'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) { }
 
   pesquisar(filtro: PessoaFiltro): Promise<any> {
     let params = new HttpParams()
@@ -22,7 +25,7 @@ export class PessoaService {
       .set('size', filtro.itensPorPagina)
 
     const headers = new HttpHeaders()
-      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDUyNDExMDUsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJzQmRTUjRGRGNhbEw1WDV5dVJhYWZYekxxcG8iLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.4tM-RHLhb1Y3iXSzX_jSxNiOoRJ0OAinOwEbUldHamc')
+      .append('Authorization', this.BEARER_TOKEN)
 
     if (filtro.nome) {
       params = params.set('nome', filtro.nome)
@@ -41,5 +44,27 @@ export class PessoaService {
 
         return resultado
       })
+  }
+
+  excluir(codigo: number) {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.BEARER_TOKEN)
+
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
+      .toPromise()
+      .then()
+      .catch(err => {
+        this.errorHandler.handle(err)
+      })
+  }
+
+  atualizarStatus(codigo: number, status: boolean) {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.BEARER_TOKEN)
+
+    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, status , { headers })
+      .toPromise()
+      .then()
+      .catch(err => this.errorHandler.handle(err))
   }
 }
