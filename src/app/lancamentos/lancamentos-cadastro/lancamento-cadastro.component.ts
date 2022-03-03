@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -28,12 +29,31 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoaService: PessoaService,
     private lancamentoService: LancamentoService,
     private messagesService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    const codigoLancamento = this.route.snapshot.params['codigo']
+
+    if (codigoLancamento) {
+      this.carregarLancamento(codigoLancamento)
+    }
+
     this.carregarCategorias()
     this.carregarPessoas()
+  }
+
+  get editando() {
+    return Boolean(this.lancamento.codigo)
+  }
+
+  carregarLancamento(codigo: number) {
+    this.lancamentoService.buscarPorCodigo(codigo)
+      .then(lancamento => {
+        this.lancamento = lancamento
+      })
+      .catch(err => this.errorHandler.handle(err))
   }
 
   carregarCategorias() {
