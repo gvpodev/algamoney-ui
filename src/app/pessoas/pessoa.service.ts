@@ -13,11 +13,20 @@ export class PessoaFiltro {
 })
 export class PessoaService {
 
-  private readonly BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDYzMTQzMzEsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJoZk9sdzhVN1JKZEtyeDJZaTJyNXRENW8yU2MiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.xcmk5_Qci-JBFLZ97c5iucml38jmfl8PDiJUFSjC1-0'
+  private readonly BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDYzMTYzODAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJqQWY0alVDdXBiX2RmQllDT3BxNE5ZWEV4VU0iLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.j8bkrmUEpPkJIMsjTFiCYRNkMv8P08dAd_8Jswpl2RI'
 
   pessoasUrl = 'http://localhost:8080/pessoas'
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) { }
+
+  listar() {
+    const headers = new HttpHeaders()
+      .append('Authorization', this.BEARER_TOKEN)
+
+    return this.http.get(this.pessoasUrl, { headers })
+      .toPromise()
+      .then((response: any) => response.content)
+  }
 
   pesquisar(filtro: PessoaFiltro): Promise<any> {
     let params = new HttpParams()
