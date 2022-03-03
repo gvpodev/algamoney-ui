@@ -1,46 +1,33 @@
 // App modules
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import ptBr from '@angular/common/locales/pt';
 
+// Third-party
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
-// Components modules
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+
+// App modules/components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { CoreModule } from './core/core.module';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Routes, RouterModule } from '@angular/router';
-import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { LancamentoCadastroComponent } from './lancamentos/lancamentos-cadastro/lancamento-cadastro.component';
-import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
-import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 
 registerLocaleData(ptBr);
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
-
-const routes: Routes = [
-  { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
-  { path: 'lancamentos', component: LancamentosPesquisaComponent },
-  { path: 'lancamentos/novo', component: LancamentoCadastroComponent },
-  { path: 'lancamentos/:codigo', component: LancamentoCadastroComponent },
-  { path: 'pessoas', component: PessoasPesquisaComponent },
-  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
-  { path: '**', redirectTo: 'pagina-nao-encontrada' }
-]
 
 @NgModule({
   declarations: [
@@ -54,7 +41,7 @@ const routes: Routes = [
     FormsModule,
     ToastModule,
     ConfirmDialogModule,
-    RouterModule.forRoot(routes),
+    AppRoutingModule,
 
     LancamentosModule,
     PessoasModule,
@@ -73,7 +60,8 @@ const routes: Routes = [
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
     MessageService,
     ConfirmationService,
-    TranslateService
+    TranslateService,
+    Title
   ],
   bootstrap: [AppComponent]
 })

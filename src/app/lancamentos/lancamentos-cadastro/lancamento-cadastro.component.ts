@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
@@ -31,7 +32,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private messagesService: MessageService,
     private errorHandler: ErrorHandlerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,8 @@ export class LancamentoCadastroComponent implements OnInit {
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento)
     }
+
+    this.title.setTitle('Cadastro de lançamentos')
 
     this.carregarCategorias()
     this.carregarPessoas()
@@ -53,6 +57,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(lancamento => {
         this.lancamento = lancamento
+        this.atualizarTituloEdicao()
       })
       .catch(err => this.errorHandler.handle(err))
   }
@@ -90,7 +95,8 @@ export class LancamentoCadastroComponent implements OnInit {
       .then((lancamento: any) => {
         this.lancamento = lancamento
 
-        this.messagesService.add({ severity: 'success', summary: 'Lançamento atualizado', detail: 'O lançamento foi atualizado com sucesso!' });
+        this.messagesService.add({ severity: 'success', summary: 'Lançamento atualizado', detail: 'O lançamento foi atualizado com sucesso!' })
+        this.atualizarTituloEdicao()
       })
       .catch(err => this.errorHandler.handle(err))
   }
@@ -106,6 +112,10 @@ export class LancamentoCadastroComponent implements OnInit {
   novo(form: NgForm) {
     form.reset(new Lancamento())
     this.router.navigate(['/lancamentos/novo'])
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`)
   }
 
 }

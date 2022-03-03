@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 
@@ -17,7 +18,8 @@ export class LancamentosPesquisaComponent implements OnInit {
   constructor(
     private lancamentoService: LancamentoService,
     private messagesService: MessageService,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private title: Title
   ) { }
 
   mudarPagina(event: LazyLoadEvent) {
@@ -60,5 +62,6 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('Pesquisa de lançamentos')
   }
 }
