@@ -41,11 +41,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     ToastModule,
     ConfirmDialogModule,
-    AppRoutingModule,
 
     LancamentosModule,
     PessoasModule,
     CoreModule,
+
+    AppRoutingModule,
 
     TranslateModule.forRoot({
       loader: {
@@ -53,7 +54,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
