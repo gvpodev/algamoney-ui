@@ -24,10 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     PessoasPesquisaComponent,
     PessoasTabelaComponent
   ],
-  exports: [
-    PessoaCadastroComponent,
-    PessoasPesquisaComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     FormsModule,

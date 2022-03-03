@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -30,7 +30,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private messagesService: MessageService,
     private errorHandler: ErrorHandlerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -75,15 +76,36 @@ export class LancamentoCadastroComponent implements OnInit {
       })
   }
 
-  salvar(lancamentoForm: NgForm) {
+  adicionarLancamento(lancamentoForm: NgForm) {
     this.lancamentoService.adicionar(this.lancamento)
-      .then(() => {
+      .then((lancamentoAdicionado: any) => {
         this.messagesService.add({ severity: 'success', summary: 'Lançamento cadastrado', detail: 'O lançamento foi cadastrado com sucesso!' });
-
-        lancamentoForm.reset()
-        this.lancamento = new Lancamento()
+        this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo])
       })
       .catch(err => this.errorHandler.handle(err))
+  }
+
+  atualizar(lancamentoForm: NgForm) {
+    this.lancamentoService.atualizar(this.lancamento)
+      .then((lancamento: any) => {
+        this.lancamento = lancamento
+
+        this.messagesService.add({ severity: 'success', summary: 'Lançamento atualizado', detail: 'O lançamento foi atualizado com sucesso!' });
+      })
+      .catch(err => this.errorHandler.handle(err))
+  }
+
+  salvar(lancamentoForm: NgForm) {
+    if (this.editando) {
+      this.atualizar(lancamentoForm)
+    } else {
+      this.adicionarLancamento(lancamentoForm)
+    }
+  }
+
+  novo(form: NgForm) {
+    form.reset(new Lancamento())
+    this.router.navigate(['/lancamentos/novo'])
   }
 
 }

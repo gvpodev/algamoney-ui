@@ -100,7 +100,7 @@
 
       <div class="col-12 cadastros-buttons">
         <button [disabled]="!lancamentoForm.valid" style="margin-right: 10px;" pButton type="submit" label="Salvar"></button>
-        <button style="margin-right: 10px;" pButton type="submit" label="Novo" class="p-button-help"></button>
+        <button style="margin-right: 10px;" pButton type="button" label="Novo" class="p-button-help" (click)="novo(lancamentoForm)"></button>
         <a [routerLink]="['/lancamentos']" >Voltar para a pesquisa</a>
       </div>
     </div>

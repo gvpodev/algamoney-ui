@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { Pessoa } from '../core/model';
 
@@ -14,15 +15,13 @@ export class PessoaFiltro {
 })
 export class PessoaService {
 
-  private readonly BEARER_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDYzMzczNDYsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJmcUtzVmk3c2pDV1VaQzN4cXhkdUY1aEd4LVUiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19._7I2BTXd3bfA_BZJVh4VCLIdC-DaolcBuLazqWAb1K4'
-
   pessoasUrl = 'http://localhost:8080/pessoas'
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) { }
 
   listar() {
     const headers = new HttpHeaders()
-      .append('Authorization', this.BEARER_TOKEN)
+      .append('Authorization', environment.BEARER_TOKEN)
 
     return this.http.get(this.pessoasUrl, { headers })
       .toPromise()
@@ -35,7 +34,7 @@ export class PessoaService {
       .set('size', filtro.itensPorPagina)
 
     const headers = new HttpHeaders()
-      .append('Authorization', this.BEARER_TOKEN)
+      .append('Authorization', environment.BEARER_TOKEN)
 
     if (filtro.nome) {
       params = params.set('nome', filtro.nome)
@@ -58,7 +57,7 @@ export class PessoaService {
 
   excluir(codigo: number) {
     const headers = new HttpHeaders()
-      .append('Authorization', this.BEARER_TOKEN)
+      .append('Authorization', environment.BEARER_TOKEN)
 
     return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
       .toPromise()
@@ -70,7 +69,7 @@ export class PessoaService {
 
   atualizarStatus(codigo: number, status: boolean) {
     const headers = new HttpHeaders()
-      .append('Authorization', this.BEARER_TOKEN)
+      .append('Authorization', environment.BEARER_TOKEN)
 
     return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, status , { headers })
       .toPromise()
@@ -81,7 +80,7 @@ export class PessoaService {
 
   adicionar(pessoa: Pessoa): Promise<any> {
     const headers = new HttpHeaders()
-      .append('Authorization', this.BEARER_TOKEN)
+      .append('Authorization', environment.BEARER_TOKEN)
       .append('Content-Type', 'application/json')
 
     return this.http.post(this.pessoasUrl, pessoa, { headers })
