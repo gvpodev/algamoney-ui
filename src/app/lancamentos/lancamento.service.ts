@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
   descricao?: string
@@ -76,5 +77,18 @@ export class LancamentoService {
       .catch(err => {
         this.errorHandler.handle(err)
       })
+  }
+
+  adicionar(lancamento: Lancamento): Promise<Lancamento | undefined> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDYzMzQ3NjEsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI4ejBBSWk3aFFUcWd5eWNkcnFzeTlPMndVU3ciLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.noQ6fGLK1zs5djzgQykn_nmH0zsqqCPttjD3fJqh8lM')
+      .append('Content-Type', 'application/json');
+
+    return this.http.post<Lancamento>
+    (
+      this.lancamentosUrl,
+      lancamento,
+      { headers }
+    ).toPromise();
   }
 }
