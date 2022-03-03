@@ -9,8 +9,8 @@
 
   <ul class="navbar-menu" [hidden]="!showMenu">
     <li class="navbar-user">Gabriel Pimentel</li>
-    <li class="navbar-menu-item"><a href="#">Lançamentos</a></li>
-    <li class="navbar-menu-item"><a href="#">Pessoas</a></li>
+    <li class="navbar-menu-item" routerLinkActive="active"><a [routerLink]="['/lancamentos']">Lançamentos</a></li>
+    <li class="navbar-menu-item" routerLinkActive="active"><a [routerLink]="['/pessoas']">Pessoas</a></li>
     <li class="navbar-menu-item"><a href="#">Sair</a></li>
   </ul>
 </nav>
