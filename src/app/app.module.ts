@@ -22,6 +22,7 @@ import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { CoreModule } from './core/core.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(ptBr);
 
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LancamentosModule,
     PessoasModule,
     CoreModule,
+    SegurancaModule,
 
     AppRoutingModule,
 
