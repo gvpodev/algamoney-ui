@@ -31,9 +31,6 @@ export class LancamentoService {
       .set('page', filtro.pagina)
       .set('size', filtro.itensPorPagina)
 
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
     if (filtro.descricao) {
       params = params.set('descricao', filtro.descricao)
       console.log(params)
@@ -50,7 +47,7 @@ export class LancamentoService {
     }
 
     return this.http.get(`${this.lancamentosUrl}?resumo`,
-    { headers, params })
+    { params })
       .toPromise()
       .then((response: any) => {
         const responseJson = response
@@ -69,10 +66,7 @@ export class LancamentoService {
   }
 
   excluir(codigo: number) {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
       .toPromise()
       .then()
       .catch(err => {
@@ -82,7 +76,6 @@ export class LancamentoService {
 
   adicionar(lancamento: Lancamento): Promise<Lancamento | undefined> {
     const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
       .append('Content-Type', 'application/json');
 
     return this.http.post<Lancamento>
@@ -95,7 +88,6 @@ export class LancamentoService {
 
   atualizar(lancamento: Lancamento): Promise<Lancamento | undefined> {
     const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
       .append('Content-Type', 'application/json');
 
     return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers })
@@ -103,10 +95,7 @@ export class LancamentoService {
   }
 
   buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN);
-
-    return this.http.get(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.get(`${this.lancamentosUrl}/${codigo}`)
       .toPromise()
       .then((response:any) => {
         this.converterStringsParaDatas([response]);

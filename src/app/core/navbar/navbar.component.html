@@ -8,9 +8,13 @@
   </div>
 
   <ul class="navbar-menu" [hidden]="!showMenu">
-    <li class="navbar-user">Gabriel Pimentel</li>
-    <li class="navbar-menu-item" routerLinkActive="active"><a [routerLink]="['/lancamentos']">Lançamentos</a></li>
-    <li class="navbar-menu-item" routerLinkActive="active"><a [routerLink]="['/pessoas']">Pessoas</a></li>
+    <li class="navbar-user">{{ usuarioLogado }}</li>
+    <li class="navbar-menu-item" routerLinkActive="active"
+      *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')"
+    ><a [routerLink]="['/lancamentos']">Lançamentos</a></li>
+    <li class="navbar-menu-item" routerLinkActive="active"
+      *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')"
+    ><a [routerLink]="['/pessoas']">Pessoas</a></li>
     <li class="navbar-menu-item"><a href="#">Sair</a></li>
   </ul>
 </nav>

@@ -20,10 +20,7 @@ export class PessoaService {
   constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) { }
 
   listar() {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
-    return this.http.get(this.pessoasUrl, { headers })
+    return this.http.get(this.pessoasUrl)
       .toPromise()
       .then((response: any) => response.content)
   }
@@ -33,14 +30,11 @@ export class PessoaService {
       .set('page', filtro.pagina)
       .set('size', filtro.itensPorPagina)
 
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
     if (filtro.nome) {
       params = params.set('nome', filtro.nome)
     }
 
-    return this.http.get(`${this.pessoasUrl}`, { headers, params })
+    return this.http.get(`${this.pessoasUrl}`, { params })
       .toPromise()
       .then((response: any) => {
         const responseJson = response
@@ -56,10 +50,7 @@ export class PessoaService {
   }
 
   excluir(codigo: number) {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
-    return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`)
       .toPromise()
       .then()
       .catch(err => {
@@ -68,10 +59,7 @@ export class PessoaService {
   }
 
   atualizarStatus(codigo: number, status: boolean) {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
-
-    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, status , { headers })
+    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, status )
       .toPromise()
       .then()
       .catch(err => this.errorHandler.handle(err))
@@ -79,7 +67,6 @@ export class PessoaService {
 
   adicionar(pessoa: Pessoa): Promise<Pessoa | undefined> {
     const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
       .append('Content-Type', 'application/json');
 
     return this.http.post<Pessoa>
@@ -93,7 +80,6 @@ export class PessoaService {
 
   atualizar(pessoa: Pessoa): Promise<any> {
     const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN)
       .append('Content-Type', 'application/json')
 
       return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, pessoa, { headers })
@@ -101,10 +87,7 @@ export class PessoaService {
   }
 
   buscarPorCodigo(codigo: number): Promise<Pessoa> {
-    const headers = new HttpHeaders()
-      .append('Authorization', environment.BEARER_TOKEN);
-
-    return this.http.get(`${this.pessoasUrl}/${codigo}`, { headers })
+    return this.http.get(`${this.pessoasUrl}/${codigo}`)
       .toPromise()
       .then((response:any) => {
         return response;
