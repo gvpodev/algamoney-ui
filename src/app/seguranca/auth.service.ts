@@ -18,6 +18,12 @@ export class AuthService {
     this.carregarToken()
   }
 
+  isAccessTokenInvalido() {
+    const token = localStorage.getItem('token')
+
+    return !token || this.jwtHelper.isTokenExpired(token)
+  }
+
   login(usuario: string, senha: string) {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
@@ -25,7 +31,7 @@ export class AuthService {
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`
 
-    return this.http.post(this.oauthTokenUrl, body, { headers })
+    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then((response: any) => {
         this.armazenarToken(response.access_token)
@@ -38,6 +44,25 @@ export class AuthService {
         }
 
         return Promise.reject(err)
+      })
+  }
+
+  novoAccessToken() {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', environment.BASIC_AUTH)
+
+    const body = 'grant_type=refresh_token'
+
+    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
+      .toPromise()
+      .then((response: any) => {
+        this.armazenarToken(response.access_token)
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        console.log(err)
+        return Promise.resolve(null)
       })
   }
 

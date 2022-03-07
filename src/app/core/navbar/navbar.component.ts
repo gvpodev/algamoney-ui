@@ -17,5 +17,4 @@ export class NavbarComponent implements OnInit {
     this.usuarioLogado = this.auth.jwtPayload?.user_name
     console.log(this.auth.jwtPayload)
   }
-
 }
