@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/seguranca/auth.service';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class LancamentosPesquisaComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private messagesService: MessageService,
     private confirmation: ConfirmationService,
+    public auth: AuthService,
     private title: Title
   ) { }
 

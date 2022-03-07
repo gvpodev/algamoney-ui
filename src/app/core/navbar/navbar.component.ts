@@ -15,6 +15,5 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioLogado = this.auth.jwtPayload?.user_name
-    console.log(this.auth.jwtPayload)
   }
 }

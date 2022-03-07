@@ -33,7 +33,6 @@ export class LancamentoService {
 
     if (filtro.descricao) {
       params = params.set('descricao', filtro.descricao)
-      console.log(params)
     }
 
     if (filtro.dataVencimentoInicio) {

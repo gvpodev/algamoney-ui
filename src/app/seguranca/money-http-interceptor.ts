@@ -13,6 +13,8 @@ export class MoneyHttpInterceptor {
       return from(this.auth.novoAccessToken())
         .pipe(
           mergeMap(() => {
+            if (this.auth.isAccessTokenInvalido()) {
+            }
             req = req.clone({
               setHeaders: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`

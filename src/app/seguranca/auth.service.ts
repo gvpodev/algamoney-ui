@@ -66,6 +66,16 @@ export class AuthService {
       })
   }
 
+  temQualquerPermissao(roles: string[]) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao)
   }
