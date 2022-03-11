@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { from, mergeMap, Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 
+export class NotAuthorizedError {}
+
 @Injectable()
 export class MoneyHttpInterceptor {
 
@@ -14,6 +16,7 @@ export class MoneyHttpInterceptor {
         .pipe(
           mergeMap(() => {
             if (this.auth.isAccessTokenInvalido()) {
+              throw new NotAuthorizedError()
             }
             req = req.clone({
               setHeaders: {
